@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources - SafeSpace Academy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ===== BASE STYLES ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #fff5f5;
+      margin-left: 250px;
+      color: #333;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ffd6e7;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 250px;
+      z-index: 90;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: left 0.3s ease;
+    }
+
+    .left-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .hamburger-menu {
+      display: none;
+      font-size: 24px;
+      color: #c2185b;
+      cursor: pointer;
+    }
+
+    .group-indicator {
+      font-weight: 600;
+      color: #c2185b;
+      padding: 8px 15px;
+      border-radius: 20px;
+      background-color: #ffebee;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .group-indicator i {
+      margin-right: 8px;
+      color: #c2185b;
+    }
+
+    .right-section a {
+      margin-left: 15px;
+      color: #c2185b;
+      font-size: 18px;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #c2185b;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background-color: #880e4f;
+    }
+
+    .sidebar img {
+      width: 110px;
+      height: 90px;
+      margin-bottom: 10px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      font-family: 'Comic Neue', cursive;
+    }
+
+    .sidebar-menu {
+      width: 100%;
+      list-style: none;
+      padding: 20px 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .sidebar-menu li {
+      margin: 8px 0;
+    }
+
+    .sidebar-menu a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      margin: 0 10px;
+    }
+
+    .sidebar-menu a i {
+      margin-right: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-menu a:hover {
+      background-color: #d81b60;
+    }
+
+    .sidebar-menu a.active {
+      background-color: #880e4f;
+      font-weight: bold;
+    }
+
+    /* Main content area */
+    .main-content {
+      margin-top: 80px;
+      padding: 25px;
+    }
+
+    /* Resources Banner */
+    .resources-banner {
+      background: linear-gradient(135deg, #c2185b 0%, #ec407a 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .resources-banner h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      font-family: 'Comic Neue', cursive;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+    }
+
+    .resources-banner h1 i {
+  margin-left: 15px;
+  position: relative;
+  top: 2px; /* optional: makes it align nicely with text */
+}
+
+    .resources-banner p {
+      font-size: 18px;
+      max-width: 70%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .resources-banner .banner-icons {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 100px;
+      opacity: 0.2;
+      z-index: 1;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Resources Categories */
+    .resources-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .category-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .category-header {
+      position: relative;
+      height: 120px;
+      background: linear-gradient(135deg, #c2185b 0%, #ec407a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .category-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 30px;
+    }
+
+    .category-details {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .category-details h3 {
+      color: #c2185b;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .category-info {
+      color: #555;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .resource-count {
+      display: block;
+      font-size: 14px;
+      color: #ec407a;
+      margin-bottom: 15px;
+    }
+
+    .category-action {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #c2185b;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .category-action:hover {
+      background-color: #ec407a;
+      transform: translateY(-3px);
+    }
+
+    /* Featured Resources */
+    .featured-resources {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .featured-resources h2 {
+      color: #c2185b;
+      margin-bottom: 20px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .featured-resources h2 i {
+      margin-right: 10px;
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .resource-card {
+      background: #ffebee;
+      border-radius: 8px;
+      padding: 20px;
+      transition: all 0.3s;
+      border-left: 4px solid #c2185b;
+    }
+
+    .resource-card:hover {
+      background: #f8bbd0;
+      transform: translateY(-3px);
+    }
+
+    .resource-card h3 {
+      color: #c2185b;
+      margin-bottom: 10px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+    }
+
+    .resource-card h3 i {
+      margin-right: 10px;
+    }
+
+    .resource-card p {
+      color: #555;
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .resource-meta {
+      display: flex;
+      justify-content: space-between;
+      color: #ec407a;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .resource-link {
+      display: inline-block;
+      padding: 8px 15px;
+      background-color: #c2185b;
+      color: white;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .resource-link:hover {
+      background-color: #ec407a;
+    }
+
+    /* Download Section */
+    .download-section {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .download-section h2 {
+      color: #c2185b;
+      margin-bottom: 20px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .download-section h2 i {
+      margin-right: 10px;
+    }
+
+    .downloads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .download-card {
+      background: #fce4ec;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .download-card:hover {
+      background: #f8bbd0;
+      transform: translateY(-3px);
+    }
+
+    .download-icon {
+      font-size: 40px;
+      color: #c2185b;
+      margin-bottom: 15px;
+    }
+
+    .download-card h3 {
+      color: #c2185b;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .download-card p {
+      color: #555;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .download-btn {
+      display: inline-block;
+      padding: 8px 15px;
+      background-color: #c2185b;
+      color: white;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .download-btn:hover {
+      background-color: #ec407a;
+    }
+
+    /* Animation */
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  
+   
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      body {
+        margin-left: 0;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .top-bar {
+        left: 0;
+      }
+      
+      .resources-banner p {
+        max-width: 100%;
+      }
+      
+      .resources-banner .banner-icons {
+        display: none;
+      }
+
+      .hamburger-menu {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .resources-categories,
+      .resources-grid,
+      .downloads-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .top-bar {
+        padding: 15px 20px;
+      }
+      
+      .group-indicator {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+      
+      .right-section a {
+        font-size: 16px;
+        margin-left: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .group-indicator {
+        font-size: 12px;
+        padding: 5px 10px;
+      }
+      
+      .right-section a {
+        font-size: 14px;
+        margin-left: 10px;
+      }
+      
+      .left-section {
+        gap: 10px;
+      }
+    }
+
+    /* Overlay for when sidebar is open on mobile */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+    
+    .overlay.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="left-section">
+      <div class="hamburger-menu" id="hamburger-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="group-indicator">
+         <i class="fas fa-users"></i> Safety Champions (6-8 years)
+      </div>
+    </div>
+    
+    <div class="right-section">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-medium-m"></i></a>
+      <a href="mailto:safespace.academy@gmail.com"><i class="fas fa-envelope"></i></a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-container">
+      <img src="https://placehold.co/110x90/pink/white?text=HS" alt="HerShield Academy Logo">
+      <h2 class="logo">HerShield Academy</h2>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="/home1eng.html"><i class="fas fa-home"></i> Home</a></li>
+  <li><a href="/grp1en/SS.html"><i class="fas fa-shield-alt"></i> Safety Sessions</a></li>
+  <li><a href="/grp1en/Teacher.html" ><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+
+  <!-- Subjects of Violence -->
+  <li><a href="/grp1en/PV.html"><i class="fas fa-user-slash"></i> Physical Violence</a></li>
+  <li><a href="/grp1en/EV.html"><i class="fas fa-heart-broken"></i> Emotional Violence</a></li>
+  <li><a href="/grp1en/SV.html"><i class="fas fa-venus-mars"></i> Sexual Violence</a></li>
+  <li><a href="/grp1en/EC.html"><i class="fas fa-hand-holding-usd"></i> Economic Violence</a></li>
+  <li><a href="/grp1en/Cyber.html"><i class="fas fa-user-lock"></i> Cyberbullying</a></li>
+
+  <!-- Support & Resources -->
+  <li><a href="/grp1en/EH.html"><i class="fas fa-phone-alt"></i> Emergency Help</a></li>
+  <li><a href="/grp1en/resource.html" class="active"><i class="fas fa-book"></i> Resources</a></li>
+  <li><a href="/grp1en/Guide.html"><i class="fas fa-cog"></i> Guidelines</a></li>
+  <li><a href="/grp1en/SH.html"><i class="fas fa-hand-holding-heart"></i> Support & Help</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Resources Banner -->
+    <div class="resources-banner">
+      <h1>Learning Resources  <i class="fas fa-book"></i></h1>
+      <p>Explore our collection of educational materials, guides, and tools for creating safer spaces.</p>
+      <div class="banner-icons">
+        <i class="fas fa-book"></i>
+      </div>
+    </div>
+
+    <!-- Resources Categories -->
+    <div class="resources-categories">
+      <!-- Safety Education -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+        </div>
+        <div class="category-details">
+          <h3>Safety Education</h3>
+          <p class="category-info">Resources for personal safety, boundary setting, and recognizing unsafe situations.</p>
+          <span class="resource-count">24 resources available</span>
+          <a href="#" class="category-action">Explore</a>
+        </div>
+      </div>
+
+      <!-- Empowerment -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">
+            <i class="fas fa-hand-holding-heart"></i>
+          </div>
+        </div>
+        <div class="category-details">
+          <h3>Empowerment</h3>
+          <p class="category-info">Materials to build confidence, self-esteem, and personal agency.</p>
+          <span class="resource-count">18 resources available</span>
+          <a href="#" class="category-action">Explore</a>
+        </div>
+      </div>
+
+      <!-- Rights Education -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+        </div>
+        <div class="category-details">
+          <h3>Rights Education</h3>
+          <p class="category-info">Learn about personal rights, consent, and legal protections.</p>
+          <span class="resource-count">15 resources available</span>
+          <a href="#" class="category-action">Explore</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Resources -->
+    <div class="featured-resources">
+      <h2><i class="fas fa-star"></i> Featured Resources</h2>
+      <div class="resources-grid">
+        <div class="resource-card">
+          <h3><i class="fas fa-file-pdf"></i> Consent Guidebook</h3>
+          <p>A comprehensive guide to understanding and practicing consent in various relationships and situations.</p>
+          <div class="resource-meta">
+            <span><i class="fas fa-clock"></i> 15 pages</span>
+            <span><i class="fas fa-download"></i> 342 downloads</span>
+          </div>
+          <a href="#" class="resource-link">Download PDF</a>
+        </div>
+        
+        <div class="resource-card">
+          <h3><i class="fas fa-video"></i> Digital Safety Workshop</h3>
+          <p>Video series on staying safe online, protecting personal information, and recognizing digital threats.</p>
+          <div class="resource-meta">
+            <span><i class="fas fa-clock"></i> 45 mins</span>
+            <span><i class="fas fa-eye"></i> 568 views</span>
+          </div>
+          <a href="#" class="resource-link">Watch Now</a>
+        </div>
+        
+        <div class="resource-card">
+          <h3><i class="fas fa-book"></i> Healthy Relationships</h3>
+          <p>Interactive workbook to help identify characteristics of healthy vs. unhealthy relationships.</p>
+          <div class="resource-meta">
+            <span><i class="fas fa-clock"></i> 22 pages</span>
+            <span><i class="fas fa-download"></i> 297 downloads</span>
+          </div>
+          <a href="#" class="resource-link">Download Workbook</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div class="download-section">
+      <h2><i class="fas fa-download"></i> Quick Downloads</h2>
+      <div class="downloads-grid">
+        <div class="download-card">
+          <div class="download-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <h3>Safety Plan Template</h3>
+          <p>Create your personalized safety plan for various situations.</p>
+          <a href="#" class="download-btn">Download</a>
+        </div>
+        
+        <div class="download-card">
+          <div class="download-icon">
+            <i class="fas fa-list-check"></i>
+          </div>
+          <h3>Resource Checklist</h3>
+          <p>Essential resources and contacts for different needs.</p>
+          <a href="#" class="download-btn">Download</a>
+        </div>
+        
+        <div class="download-card">
+          <div class="download-icon">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <h3>Emergency Contacts</h3>
+          <p>Printable emergency contact sheet for quick reference.</p>
+          <a href="#" class="download-btn">Download</a>
+        </div>
+        
+        <div class="download-card">
+          <div class="download-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h3>Conversation Starters</h3>
+          <p>Guide to discussing difficult topics with loved ones.</p>
+          <a href="#" class="download-btn">Download</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburgerMenu = document.getElementById('hamburger-menu');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+
+      // Toggle sidebar on hamburger menu click
+      hamburgerMenu.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      });
+
+      // Close sidebar when clicking on overlay
+      overlay.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      });
+      // Make the welcome banner icons float
+      const bannerIcons = document.querySelector('.banner-icons');
+      if (bannerIcons) {
+        bannerIcons.style.animation = 'float 4s ease-in-out infinite';
+      }
+    });
+  </script>
+</body>
+</html>

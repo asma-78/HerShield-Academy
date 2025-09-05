@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyberbullying Education - SafeSpace Academy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ===== BASE STYLES ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #fff5f5;
+      margin-left: 250px;
+      color: #333;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ffd6e7;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 250px;
+      z-index: 90;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: left 0.3s ease;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      color: #c2185b;
+      cursor: pointer;
+    }
+
+    .group-indicator {
+      font-weight: 600;
+      color: #c2185b;
+      padding: 8px 15px;
+      border-radius: 20px;
+      background-color: #ffebee;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .group-indicator i {
+      margin-right: 8px;
+      color: #c2185b;
+    }
+
+    .right-section a {
+      margin-left: 15px;
+      color: #c2185b;
+      font-size: 18px;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #c2185b;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background-color: #880e4f;
+    }
+
+    .sidebar img {
+      width: 110px;
+      height: 90px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      font-family: 'Comic Neue', cursive;
+    }
+
+    .sidebar-menu {
+      width: 100%;
+      list-style: none;
+      padding: 20px 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .sidebar-menu li {
+      margin: 8px 0;
+    }
+
+    .sidebar-menu a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      margin: 0 10px;
+    }
+
+    .sidebar-menu a i {
+      margin-right: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-menu a:hover {
+      background-color: #d81b60;
+    }
+
+    .sidebar-menu a.active {
+      background-color: #880e4f;
+      font-weight: bold;
+    }
+
+    /* Main content area */
+    .main-content {
+      margin-top: 80px;
+      padding: 25px;
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, #c2185b 0%, #ec407a 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .page-header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      font-family: 'Comic Neue', cursive;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+    }
+
+    .page-header h1 i {
+      margin-right: 15px;
+    }
+
+    .page-header p {
+      font-size: 18px;
+      max-width: 70%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-header .header-icons {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 100px;
+      opacity: 0.2;
+      z-index: 1;
+    }
+
+    /* Tab Navigation */
+    .tab-navigation {
+      display: flex;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #ffebee;
+    }
+
+    .tab-btn {
+      padding: 12px 25px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #888;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .tab-btn.active {
+      color: #c2185b;
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #c2185b;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .tab-btn:hover {
+      color: #c2185b;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Material Cards */
+    .material-card {
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .material-header {
+      padding: 20px;
+      border-bottom: 1px solid #ffebee;
+    }
+
+    .material-title {
+      color: #c2185b;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .material-meta {
+      display: flex;
+      gap: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .material-meta span {
+      display: flex;
+      align-items: center;
+    }
+
+    .material-meta i {
+      margin-right: 5px;
+    }
+
+    .material-content {
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .material-thumbnail {
+      width: 100px;
+      height: 100px;
+      background-color: #ffebee;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c2185b;
+      font-size: 40px;
+      flex-shrink: 0;
+    }
+
+    .material-description {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .material-files {
+      background-color: #f9f9f9;
+      padding: 15px 20px;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .file-item:last-child {
+      border-bottom: none;
+    }
+
+    .file-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #ffebee;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c2185b;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .file-info {
+      flex-grow: 1;
+    }
+
+    .file-name {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 3px;
+    }
+
+    .file-meta {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .file-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .file-actions a {
+      color: #c2185b;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+
+    .file-actions i {
+      margin-right: 5px;
+    }
+
+    .activity-form {
+      padding: 20px;
+      border-top: 1px solid #ffebee;
+    }
+
+    .activity-form h4 {
+      color: #c2185b;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .activity-form h4 i {
+      margin-right: 10px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background-color: #c2185b;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #880e4f;
+    }
+
+    /* Support Section */
+    .support-section {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .support-section h2 {
+      color: #c2185b;
+      margin-bottom: 15px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .support-section h2 i {
+      margin-right: 10px;
+    }
+
+    .support-section p {
+      color: #555;
+      margin-bottom: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .emergency-contact {
+      background: #ffebee;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .emergency-contact h3 {
+      color: #c2185b;
+      margin-bottom: 10px;
+    }
+
+    .emergency-contact p {
+      margin-bottom: 15px;
+      color: #666;
+    }
+
+    .emergency-contact .hotline {
+      font-size: 24px;
+      font-weight: bold;
+      color: #c2185b;
+      margin: 10px 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      body {
+        margin-left: 0;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .top-bar {
+        left: 0;
+      }
+      
+      .page-header p {
+        max-width: 100%;
+      }
+      
+      .page-header .header-icons {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .material-content {
+        flex-direction: column;
+      }
+      
+      .material-thumbnail {
+        align-self: center;
+      }
+      
+      .file-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .file-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .top-bar {
+        padding: 15px 20px;
+      }
+      
+      .group-indicator {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+      
+      .right-section a {
+        font-size: 16px;
+        margin-left: 12px;
+      }
+      
+      .tab-navigation {
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .group-indicator {
+        font-size: 12px;
+        padding: 5px 10px;
+      }
+      
+      .right-section a {
+        font-size: 14px;
+        margin-left: 10px;
+      }
+      
+      .material-meta {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .emergency-contact .hotline {
+        font-size: 20px;
+      }
+    }
+
+    /* Animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+  
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Overlay for when sidebar is open on mobile */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+    
+    .overlay.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+    <div class="group-indicator">
+      <i class="fas fa-users"></i> Safety Champions (6-8 years)
+    </div>
+    <div class="right-section">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-medium-m"></i></a>
+      <a href="mailto:safespace.academy@gmail.com"><i class="fas fa-envelope"></i></a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-container">
+      <img src="https://placehold.co/110x90/pink/white?text=HS" alt="HerShield Academy Logo" class="floating">
+      <h2 class="logo">HerShield Academy</h2>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="/home1eng.html"><i class="fas fa-home"></i> Home</a></li>
+  <li><a href="/grp1en/SS.html"><i class="fas fa-shield-alt"></i> Safety Sessions</a></li>
+  <li><a href="/grp1en/Teacher.html" ><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+
+  <!-- Subjects of Violence -->
+  <li><a href="/grp1en/PV.html"><i class="fas fa-user-slash"></i> Physical Violence</a></li>
+  <li><a href="/grp1en/EV.html"><i class="fas fa-heart-broken"></i> Emotional Violence</a></li>
+  <li><a href="/grp1en/SV.html"><i class="fas fa-venus-mars"></i> Sexual Violence</a></li>
+  <li><a href="/grp1en/EC.html"><i class="fas fa-hand-holding-usd"></i> Economic Violence</a></li>
+  <li><a href="/grp1en/Cyber.html" class="active"><i class="fas fa-user-lock"></i> Cyberbullying</a></li>
+
+  <!-- Support & Resources -->
+  <li><a href="/grp1en/EH.html"><i class="fas fa-phone-alt"></i> Emergency Help</a></li>
+  <li><a href="/grp1en/resource.html" ><i class="fas fa-book"></i> Resources</a></li>
+  <li><a href="/grp1en/Guide.html"><i class="fas fa-cog"></i> Guidelines</a></li>
+  <li><a href="/grp1en/SH.html"><i class="fas fa-hand-holding-heart"></i> Support & Help</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Page Header -->
+    
+
+    <!-- Support Section -->
+    <div class="support-section">
+      <h2><i class="fas fa-exclamation-circle"></i> Your Digital Safety Matters</h2>
+      <p>Cyberbullying can happen to anyone. This section will help you understand what cyberbullying looks like, how to protect yourself online, and where to find help if you need it.</p>
+      
+      <div class="emergency-contact">
+        <h3><i class="fas fa-phone-alt"></i> Immediate Support</h3>
+        <p>If you or someone you know is experiencing cyberbullying:</p>
+        <div class="hotline">Cyberbullying Research Center: ----</div>
+        <p>National Suicide Prevention Lifeline: --- or ----</p>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-navigation">
+      <button class="tab-btn active" data-tab="lessons">Lessons</button>
+      <button class="tab-btn" data-tab="activities">Activities</button>
+      <button class="tab-btn" data-tab="resources">Resources</button>
+    </div>
+    
+    <!-- Lessons Tab Content -->
+    <div id="lessons" class="tab-content active">
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Recognizing Cyberbullying</h3>
+          <div class="material-meta">
+            <span><i class="fas fa-calendar-alt"></i> Due: Date</span>
+            <span><i class="fas fa-user"></i> Digital Safety Expert .....</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="material-description">
+            <p>Understand the different forms of cyberbullying, including hurtful messages, spreading rumors online, exclusion from digital groups, and impersonation. Learn to identify warning signs and how cyberbullying affects mental and emotional well-being.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Identifying Cyberbullying</div>
+              <div class="file-meta">MP4 • 14:20 min • 42 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-play"></i> Watch</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Cyberbullying Recognition Guide</div>
+              <div class="file-meta">PDF • 9 pages • 6 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-eye"></i> View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Digital Self-Protection Strategies</h3>
+          <div class="material-meta">
+            <span><i class="fas fa-calendar-alt"></i> Due: Date</span>
+            <span><i class="fas fa-user"></i> Cybersecurity Expert .......</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="material-description">
+            <p>Learn practical strategies to protect yourself from cyberbullying, including privacy settings management, safe social media practices, and how to respond to online harassment. This lesson also covers supporting friends who experience cyberbullying and reporting incidents effectively.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Digital Protection Techniques</div>
+              <div class="file-meta">MP4 • 16:45 min • 48 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-play"></i> Watch</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Privacy Settings Handbook</div>
+              <div class="file-meta">PDF • 7 pages • 5 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-eye"></i> View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Being an Upstander Online</h3>
+          <div class="material-meta">
+            <span><i class="fas fa-calendar-alt"></i> Due: Date</span>
+            <span><i class="fas fa-user"></i> Counselor ........</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <div class="material-description">
+            <p>Learn how to be an upstander rather than a bystander when witnessing cyberbullying. Discover safe intervention strategies, how to support targets of cyberbullying, and ways to promote positive digital communities.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Upstander Strategies</div>
+              <div class="file-meta">MP4 • 13:30 min • 38 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-play"></i> Watch</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Positive Intervention Guide</div>
+              <div class="file-meta">PDF • 6 pages • 4 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Activities Tab Content -->
+    <div id="activities" class="tab-content">
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Digital Footprint Audit</h3>
+          <div class="material-meta">
+            <span><i class="fas fa-calendar-alt"></i> Due: date</span>
+            <span><i class="fas fa-user"></i> Digital Safety Expert .....</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="material-description">
+            <p>Conduct a review of your digital footprint across social media platforms. Learn what information is publicly available and how to strengthen your privacy settings to protect against cyberbullying.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Digital Footprint Worksheet</div>
+              <div class="file-meta">PDF • 5 pages • 3 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Platform Privacy Checklists</div>
+              <div class="file-meta">PDF • 8 pages • 5 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+        <div class="activity-form">
+          <h4><i class="fas fa-paper-plane"></i> Share Your Privacy Settings Review</h4>
+          <!-- Replace with your Google Form embed link -->
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeL6U5hR0Q1n2k8ZSYdXcXz6VcY6Q6bW6jZ6v6w/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Response Strategy Role-Play</h3>
+          <div class="material-meta">
+            <span><i class="fas fa-calendar-alt"></i> Due: date</span>
+            <span><i class="fas fa-user"></i> Counselor ......</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-theater-masks"></i>
+          </div>
+          <div class="material-description">
+            <p>Practice responding to cyberbullying scenarios through role-playing exercises. Develop effective communication strategies and learn when and how to escalate situations to trusted adults.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Cyberbullying Scenario Cards</div>
+              <div class="file-meta">PDF • 7 pages • 4 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Response Strategy Guide</div>
+              <div class="file-meta">PDF • 6 pages • 4 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+        <div class="activity-form">
+          <h4><i class="fas fa-paper-plane"></i> Share Your Role-Play Experience</h4>
+          <!-- Replace with your Google Form embed link -->
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeL6U5hR0Q1n2k8ZSYdXcXz6VcY6Q6bW6jZ6v6w/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Resources Tab Content -->
+    <div id="resources" class="tab-content">
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Cyberbullying Prevention Resources</h3>
+          <div class="material-meta">
+            <span><i class="fas fa-calendar-alt"></i> Updated: date</span>
+            <span><i class="fas fa-user"></i> HerShield Team</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-life-ring"></i>
+          </div>
+          <div class="material-description">
+            <p>Comprehensive collection of resources for preventing and addressing cyberbullying. Includes reporting tools, platform-specific safety guides, and digital wellness strategies.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Digital Safety Handbook</div>
+              <div class="file-meta">PDF • 16 pages • 11 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Social Media Safety Guides</div>
+              <div class="file-meta">PDF • 12 pages • 8 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Reporting Tools Directory</div>
+              <div class="file-meta">PDF • 9 pages • 6 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Mental Health & Recovery Resources</h3>
+          <div class="material-meta">
+            <span><i class="fas fa-calendar-alt"></i> Updated: date</span>
+            <span><i class="fas fa-user"></i> HerShield Support Team</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-heart"></i>
+          </div>
+          <div class="material-description">
+            <p>Resources for emotional support and recovery after experiencing cyberbullying. Includes mental health resources, coping strategies, and rebuilding digital confidence.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Emotional Recovery Guide</div>
+              <div class="file-meta">PDF • 14 pages • 9 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Digital Wellness Strategies</div>
+              <div class="file-meta">PDF • 8 pages • 5 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      
+      // Tab functionality
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const tabId = btn.dataset.tab;
+
+          // Deactivate everything
+          tabBtns.forEach((b) => b.classList.remove('active'));
+          tabContents.forEach((c) => c.classList.remove('active'));
+
+          // Activate clicked button and matching content
+          btn.classList.add('active');
+          const target = document.getElementById(tabId);
+          if (target) target.classList.add('active');
+        });
+      });
+
+      // Floating animation for thumbnails
+      document.querySelectorAll('.material-thumbnail').forEach((thumb) => {
+        thumb.style.animation = 'float 4s ease-in-out infinite';
+      });
+
+      // Sidebar toggle
+      if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('active');
+          overlay.classList.toggle('active');
+        });
+      }
+      
+      // Close sidebar when clicking on overlay
+      overlay.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

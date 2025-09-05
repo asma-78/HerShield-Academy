@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SafeSpace Academy | Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* ===== BASE STYLES ===== */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Comic Neue", "Segoe UI", Tahoma, Geneva, Verdana,
+          sans-serif;
+      }
+
+      body {
+        background-color: #fff5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+      }
+
+      /* ===== LOGIN CONTAINER ===== */
+      .login-container {
+        width: 100%;
+        max-width: 500px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        animation: fadeIn 0.6s ease-out;
+        border: 2px solid #ffd6e7;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .login-header {
+        background: linear-gradient(135deg, #c2185b 0%, #ec407a 100%);
+        padding: 25px 30px;
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .login-header::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        transform: rotate(30deg);
+      }
+
+      .login-title {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .safety-icon {
+        font-size: 32px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .login-subtitle {
+        font-size: 16px;
+        opacity: 0.9;
+      }
+
+      .login-body {
+        padding: 30px;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #c2185b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .input-group input,
+      .input-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #ffd6e7;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s;
+        background-color: #fffafb;
+      }
+
+      .input-group input:focus,
+      .input-group select:focus {
+        outline: none;
+        border-color: #c2185b;
+        box-shadow: 0 0 0 3px rgba(194, 24, 91, 0.2);
+      }
+
+      .login-btn {
+        background: linear-gradient(135deg, #c2185b 0%, #ec407a 100%);
+        color: white;
+        border: none;
+        padding: 14px 20px;
+        width: 100%;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .login-btn:hover {
+        background: linear-gradient(135deg, #880e4f 0%, #c2185b 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(194, 24, 91, 0.2);
+      }
+
+      .login-footer {
+        text-align: center;
+        padding: 20px;
+        border-top: 1px solid #ffd6e7;
+        font-size: 14px;
+        color: #666;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .login-footer a {
+        color: #c2185b;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .login-footer a:hover {
+        color: #880e4f;
+        text-decoration: underline;
+      }
+
+      .login-footer a i {
+        transition: transform 0.3s;
+      }
+
+      .login-footer a:hover i {
+        transform: translateX(3px);
+      }
+
+      .error-message {
+        color: #d9534f;
+        margin-top: 15px;
+        padding: 12px;
+        border-radius: 8px;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        display: none;
+        font-weight: 600;
+        animation: shake 0.5s;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-5px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(5px);
+        }
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+        border: 2px solid #ffd6e7;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .modal-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #c2185b;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+        transition: all 0.3s;
+      }
+
+      .close-modal:hover {
+        color: #c2185b;
+        transform: rotate(90deg);
+      }
+
+      .modal-body p {
+        margin-bottom: 15px;
+        line-height: 1.5;
+        color: #555;
+      }
+
+      .modal-btn {
+        background: linear-gradient(135deg, #c2185b 0%, #ec407a 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .modal-btn:hover {
+        background: linear-gradient(135deg, #880e4f 0%, #c2185b 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(194, 24, 91, 0.2);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .login-container {
+          margin: 0 15px;
+        }
+
+        .login-header {
+          padding: 20px;
+        }
+
+        .login-body {
+          padding: 20px;
+        }
+        
+        .login-footer {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main login area -->
+    <div class="login-container">
+      <div class="login-header">
+        <div>
+          <h1 class="login-title">
+            <i class="fas fa-shield-alt safety-icon"></i> HerShield Academy
+          </h1>
+          <p class="login-subtitle">Login to continue your safety education</p>
+        </div>
+      </div>
+
+      <div class="login-body">
+        <form id="loginForm">
+          <div class="input-group">
+            <label for="username"
+              ><i class="fas fa-user"></i> Username</label
+            >
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter your username"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="password"><i class="fas fa-lock"></i> Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="group"
+              ><i class="fas fa-users"></i> Group</label
+            >
+            <select id="group" required>
+              <option value="">Select your group</option>
+              <option value="Safety Champions">Safety Champions (6-8 years)</option>
+              <option value="Safety Leaders">
+                Safety Leaders (9-11 years)
+              </option>
+              <option value="Safety Advocates">
+                Safety Advocates (12-14 years)
+              </option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="language"
+              ><i class="fas fa-language"></i> Language</label
+            >
+            <select id="language" required>
+              <option value="">Select your language</option>
+              <option value="english">English</option>
+              <option value="french">French</option>
+              <option value="arabic">Arabic</option>
+              <option value="spanish">Spanish</option>
+              <option value="telugu">Telugu</option>
+            </select>
+          </div>
+
+          <button type="submit" class="login-btn">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+
+          <div id="error" class="error-message"></div>
+        </form>
+      </div>
+
+      <div class="login-footer">
+        <a href="#" id="forgotPasswordLink"
+          ><i class="fas fa-question-circle"></i> Forgot password?</a
+        >
+        <a href="#" id="signUpLink"
+          ><i class="fas fa-user-plus"></i> Don't have an account? Sign Up</a
+        >
+      </div>
+    </div>
+
+    <!-- Password Recovery Modal -->
+    <div class="modal" id="passwordRecoveryModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">
+            <i class="fas fa-lock"></i> Password Recovery
+          </h3>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            If you've forgotten your password, please submit a request using our
+            Help and Support form.
+          </p>
+          <p>
+            Our support team will verify your identity and help you regain
+            access to your account.
+          </p>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSegiBcvtoIgVrqINNcRVI5avBurUXjV-cp6HFfLmbAnggWnEg/viewform?usp=header"
+            target="_blank"
+            class="modal-btn"
+          >
+            <i class="fas fa-external-link-alt"></i> Open Password Recovery Form
+          </a>
+          <p style="margin-top: 15px; font-size: 13px">
+            <i class="fas fa-info-circle"></i> You'll be redirected to a secure
+            Google Form
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal" id="signUpModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">
+            <i class="fas fa-user-plus"></i> Create an Account
+          </h3>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            To join HerShield Academy, please complete our registration form.
+          </p>
+          <p>
+            Once submitted, our team will review your application and provide
+            login credentials within 24-48 hours.
+          </p>
+          <a
+            href="FORM LINK"
+            target="_blank"
+            class="modal-btn"
+          >
+            <i class="fas fa-external-link-alt"></i> Open Registration Form
+          </a>
+          <p style="margin-top: 15px; font-size: 13px">
+            <i class="fas fa-info-circle"></i> You'll be redirected to our secure registration form
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Valid credentials database
+      const validUsers = {
+        // Safety Champions
+        LALA: { password: "1", group: "Safety Champions", language: "english" },
+        champion2: { password: "safe456", group: "Safety Champions", language: "french" },
+        champion3: { password: "safe789", group: "Safety Champions", language: "arabic" },
+        champion4: { password: "safe012", group: "Safety Champions", language: "spanish" },
+        champion5: { password: "safe999", group: "Safety Champions", language: "telugu" },
+        
+        // Safety Leaders
+        leader1: { password: "secure123", group: "Safety Leaders", language: "english" },
+        leader2: { password: "secure456", group: "Safety Leaders", language: "french" },
+        leader3: { password: "secure789", group: "Safety Leaders", language: "arabic" },
+        leader4: { password: "secure012", group: "Safety Leaders", language: "spanish" },
+        leader5: { password: "secure999", group: "Safety Leaders", language: "telugu" },
+
+        // Safety Advocates
+        advocate1: { password: "protect123", group: "Safety Advocates", language: "english" },
+        advocate2: { password: "protect456", group: "Safety Advocates", language: "french" },
+        advocate3: { password: "protect789", group: "Safety Advocates", language: "arabic" },
+        advocate4: { password: "protect012", group: "Safety Advocates", language: "spanish" },
+        advocate5: { password: "protect999", group: "Safety Advocates", language: "telugu" },
+      };
+
+      // Group to number mapping for filenames
+      const groupNumbers = {
+        "Safety Champions": "1",
+        "Safety Leaders": "2",
+        "Safety Advocates": "3"
+      };
+
+      // Language to filename prefix mapping
+      const languagePrefixes = {
+        english: "eng",
+        french: "fran",
+        arabic: "arab",
+        spanish: "span",
+        telugu: "tel",
+      };
+
+      // DOM elements
+      const loginForm = document.getElementById("loginForm");
+
+      const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+      const signUpLink = document.getElementById("signUpLink");
+      const passwordRecoveryModal = document.getElementById("passwordRecoveryModal");
+      const signUpModal = document.getElementById("signUpModal");
+      const closeModals = document.querySelectorAll(".close-modal");
+
+      // Form submission handler
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Get form values
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+        const group = document.getElementById("group").value;
+        const language = document.getElementById("language").value;
+
+        // Reset error message
+        document.getElementById("error").style.display = "none";
+
+        // Validate all fields
+        if (!username || !password || !group || !language) {
+          showError("Please fill in all fields");
+          return;
+        }
+
+        // Check if user exists
+        if (!validUsers[username]) {
+          showError("Invalid username");
+          return;
+        }
+
+        // Verify credentials
+        const user = validUsers[username];
+        if (
+          user.password !== password ||
+          user.group !== group ||
+          user.language !== language
+        ) {
+          showError("Invalid credentials or group/language mismatch");
+          return;
+        }
+
+        // Create redirect URL
+        const groupNum = groupNumbers[group];
+        const langPrefix = languagePrefixes[language];
+        const redirectUrl = `home${groupNum}${langPrefix}.html`;
+
+        // Add loading state
+        const btn = document.querySelector(".login-btn");
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+        btn.disabled = true;
+
+        // Redirect after delay
+        setTimeout(() => {
+          window.location.href = redirectUrl;
+        }, 1500);
+      });
+
+      // Modal handlers
+      forgotPasswordLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        passwordRecoveryModal.style.display = "flex";
+      });
+
+      signUpLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        signUpModal.style.display = "flex";
+      });
+
+      // Close modal handlers
+      closeModals.forEach(closeBtn => {
+        closeBtn.addEventListener("click", function () {
+          passwordRecoveryModal.style.display = "none";
+          signUpModal.style.display = "none";
+        });
+      });
+
+      // Close modal when clicking outside
+      window.addEventListener("click", function (e) {
+        if (e.target === passwordRecoveryModal || e.target === signUpModal) {
+          passwordRecoveryModal.style.display = "none";
+          signUpModal.style.display = "none";
+        }
+      });
+
+      function showError(message) {
+        const errorDiv = document.getElementById("error");
+        errorDiv.textContent = message;
+        errorDiv.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

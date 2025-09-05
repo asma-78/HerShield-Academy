@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emotional Violence Education - SafeSpace Academy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ===== BASE STYLES ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #fff5f5;
+      margin-left: 250px;
+      color: #333;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ffd6e7;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 250px;
+      z-index: 90;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: left 0.3s ease;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      color: #c2185b;
+      cursor: pointer;
+    }
+
+    .group-indicator {
+      font-weight: 600;
+      color: #c2185b;
+      padding: 8px 15px;
+      border-radius: 20px;
+      background-color: #ffebee;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .group-indicator i {
+      margin-right: 8px;
+      color: #c2185b;
+    }
+
+    .right-section a {
+      margin-left: 15px;
+      color: #c2185b;
+      font-size: 18px;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #c2185b;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background-color: #880e4f;
+    }
+
+    .sidebar img {
+      width: 110px;
+      height: 90px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      font-family: 'Comic Neue', cursive;
+    }
+
+    .sidebar-menu {
+      width: 100%;
+      list-style: none;
+      padding: 20px 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .sidebar-menu li {
+      margin: 8px 0;
+    }
+
+    .sidebar-menu a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      margin: 0 10px;
+    }
+
+    .sidebar-menu a i {
+      margin-right: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-menu a:hover {
+      background-color: #d81b60;
+    }
+
+    .sidebar-menu a.active {
+      background-color: #880e4f;
+      font-weight: bold;
+    }
+
+    /* Main content area */
+    .main-content {
+      margin-top: 80px;
+      padding: 25px;
+    }
+
+    /* Tab Navigation */
+    .tab-navigation {
+      display: flex;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #ffebee;
+    }
+
+    .tab-btn {
+      padding: 12px 25px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #888;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .tab-btn.active {
+      color: #c2185b;
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #c2185b;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .tab-btn:hover {
+      color: #c2185b;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Material Cards */
+    .material-card {
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .material-header {
+      padding: 20px;
+      border-bottom: 1px solid #ffebee;
+    }
+
+    .material-title {
+      color: #c2185b;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .material-meta {
+      display: flex;
+      gap: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .material-meta span {
+      display: flex;
+      align-items: center;
+    }
+
+    .material-meta i {
+      margin-right: 5px;
+    }
+
+    .material-content {
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .material-thumbnail {
+      width: 100px;
+      height: 100px;
+      background-color: #ffebee;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c2185b;
+      font-size: 40px;
+      flex-shrink: 0;
+    }
+
+    .material-description {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .material-files {
+      background-color: #f9f9f9;
+      padding: 15px 20px;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .file-item:last-child {
+      border-bottom: none;
+    }
+
+    .file-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #ffebee;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c2185b;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .file-info {
+      flex-grow: 1;
+    }
+
+    .file-name {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 3px;
+    }
+
+    .file-meta {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .file-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .file-actions a {
+      color: #c2185b;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+
+    .file-actions i {
+      margin-right: 5px;
+    }
+
+    .activity-form {
+      padding: 20px;
+      border-top: 1px solid #ffebee;
+    }
+
+    .activity-form h4 {
+      color: #c2185b;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .activity-form h4 i {
+      margin-right: 10px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background-color: #c2185b;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #880e4f;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      body {
+        margin-left: 0;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .top-bar {
+        left: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .material-content {
+        flex-direction: column;
+      }
+      
+      .material-thumbnail {
+        align-self: center;
+      }
+      
+      .file-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .file-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .top-bar {
+        padding: 15px 20px;
+      }
+      
+      .group-indicator {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+      
+      .right-section a {
+        font-size: 16px;
+        margin-left: 12px;
+      }
+      
+      .tab-navigation {
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .group-indicator {
+        font-size: 12px;
+        padding: 5px 10px;
+      }
+      
+      .right-section a {
+        font-size: 14px;
+        margin-left: 10px;
+      }
+      
+      .material-meta {
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+
+    /* Animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+  
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Overlay for when sidebar is open on mobile */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+    
+    .overlay.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+    <div class="group-indicator">
+      <i class="fas fa-users"></i> Safety Champions (6-8 years)
+    </div>
+    <div class="right-section">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-medium-m"></i></a>
+      <a href="mailto:safespace.academy@gmail.com"><i class="fas fa-envelope"></i></a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-container">
+      <img src="https://placehold.co/110x90/pink/white?text=HS" alt="HerShield Academy Logo" class="floating">
+      <h2 class="logo">HerShield Academy</h2>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="/home1eng.html"><i class="fas fa-home"></i> Home</a></li>
+  <li><a href="/grp1en/SS.html"><i class="fas fa-shield-alt"></i> Safety Sessions</a></li>
+  <li><a href="/grp1en/Teacher.html" ><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+
+  <!-- Subjects of Violence -->
+  <li><a href="/grp1en/PV.html"><i class="fas fa-user-slash"></i> Physical Violence</a></li>
+  <li><a href="/grp1en/EV.html" class="active"><i class="fas fa-heart-broken"></i> Emotional Violence</a></li>
+  <li><a href="/grp1en/SV.html"><i class="fas fa-venus-mars"></i> Sexual Violence</a></li>
+  <li><a href="/grp1en/EC.html"><i class="fas fa-hand-holding-usd"></i> Economic Violence</a></li>
+  <li><a href="/grp1en/Cyber.html"><i class="fas fa-user-lock"></i> Cyberbullying</a></li>
+
+  <!-- Support & Resources -->
+  <li><a href="/grp1en/EH.html"><i class="fas fa-phone-alt"></i> Emergency Help</a></li>
+  <li><a href="/grp1en/resource.html"><i class="fas fa-book"></i> Resources</a></li>
+  <li><a href="/grp1en/Guide.html"><i class="fas fa-cog"></i> Guidelines</a></li>
+  <li><a href="/grp1en/SH.html"><i class="fas fa-hand-holding-heart"></i> Support & Help</a></li>
+    </ul>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Tab Navigation -->
+    <div class="tab-navigation">
+      <button class="tab-btn active" data-tab="lessons">Lessons</button>
+      <button class="tab-btn" data-tab="activities">Activities</button>
+      <button class="tab-btn" data-tab="resources">Recorded Sessions</button>
+    </div>
+    
+    <!-- Lessons Tab Content -->
+    <div id="lessons" class="tab-content active">
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Understanding Emotional Violence</h3>
+          <div class="material-meta">
+            <!--date-->
+            <span><i class="fas fa-calendar-alt"></i> Due: date</span>
+            <!--counselor name-->
+            <span><i class="fas fa-user"></i> Counselor (NAME)</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-heart"></i>
+          </div>
+          <!--description-->
+          <div class="material-description">
+            <p>Learn to recognize emotional violence, including name-calling, humiliation, manipulation, and isolation. This lesson helps identify hurtful words and behaviors that can damage self-esteem and emotional well-being.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Recognizing Emotional Abuse</div>
+              <div class="file-meta">MP4 • 14:20 min • 42 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-play"></i> Watch</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Emotional Safety Guide</div>
+              <div class="file-meta">PDF • 9 pages • 6 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-eye"></i> View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Building Emotional Boundaries</h3>
+          <div class="material-meta">
+            <!--date-->
+            <span><i class="fas fa-calendar-alt"></i> Due: date</span>
+            <!--counselor name-->
+            <span><i class="fas fa-user"></i> Counselor (NAME)</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-shield-heart"></i>
+          </div>
+            <!--description-->
+          <div class="material-description">
+            <p>Develop skills to protect your emotional well-being. Learn how to set healthy emotional boundaries, recognize when they're being crossed, and communicate your feelings assertively.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Emotional Boundary Techniques</div>
+              <div class="file-meta">MP4 • 16:45 min • 48 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-play"></i> Watch</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Communication Strategies</div>
+              <div class="file-meta">PDF • 7 pages • 5 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-eye"></i> View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Building Self-Esteem & Resilience</h3>
+          <div class="material-meta">
+            <!--date-->
+            <span><i class="fas fa-calendar-alt"></i> Due: date</span>
+            <!--counselor name-->
+            <span><i class="fas fa-user"></i> Counselor (NAME)</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-star"></i>
+          </div>
+            <!--description-->
+          <div class="material-description">
+            <p>Develop tools to strengthen your self-worth and resilience against emotional violence. Learn positive self-talk strategies, how to recognize your strengths, and ways to build emotional armor.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Self-Esteem Building Exercises</div>
+              <div class="file-meta">MP4 • 18:30 min • 52 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-play"></i> Watch</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Positive Affirmation Cards</div>
+              <div class="file-meta">PDF • 5 pages • 3 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Activities Tab Content -->
+    <div id="activities" class="tab-content">
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Emotional Safety Journal</h3>
+          <div class="material-meta">
+            <!--date-->
+            <span><i class="fas fa-calendar-alt"></i> Due: date</span>
+            <!--counselor name-->
+            <span><i class="fas fa-user"></i> Counselor (NAME)</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-book"></i>
+          </div>
+            <!--description-->
+          <div class="material-description">
+            <p>Create a personal emotional safety journal to track your feelings, recognize patterns, and identify what makes you feel emotionally safe or unsafe.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Journal Prompts & Guidelines</div>
+              <div class="file-meta">PDF • 6 pages • 4 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Feeling Words Vocabulary</div>
+              <div class="file-meta">PDF • 3 pages • 2 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+        <div class="activity-form">
+          <h4><i class="fas fa-paper-plane"></i> Share Your Reflections</h4>
+          <!-- Replace with your Google Form embed link -->
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeL6U5hR0Q1n2k8ZSYdXcXz6VcY6Q6bW6jZ6v6w/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Assertive Communication Practice</h3>
+          <div class="material-meta">
+            <!--date-->
+            <span><i class="fas fa-calendar-alt"></i> Due: date</span>
+            <!--counselor name-->
+            <span><i class="fas fa-user"></i> Counselor (NAME)</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-comments"></i>
+          </div>
+            <!--description-->
+          <div class="material-description">
+            <p>Practice assertive communication techniques through role-playing scenarios. Learn how to express your feelings respectfully and set clear emotional boundaries.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Role-Play Scenarios</div>
+              <div class="file-meta">PDF • 5 pages • 3 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Communication Skills Guide</div>
+              <div class="file-meta">PDF • 8 pages • 5 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+              <a href="#"><i class="fas fa-eye"></i> View</a>
+            </div>
+          </div>
+        </div>
+        <div class="activity-form">
+          <h4><i class="fas fa-paper-plane"></i> Submit Your Communication Practice</h4>
+          <!-- Replace with your Google Form embed link -->
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeL6U5hR0Q1n2k8ZSYdXcXz6VcY6Q6bW6jZ6v6w/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Resources Tab Content -->
+    <div id="resources" class="tab-content">
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Emotional Violence Prevention Resources</h3>
+          <div class="material-meta">
+            <span><i class="fas fa-calendar-alt"></i> Updated: Oct 12, 2024</span>
+            <span><i class="fas fa-user"></i> SafeSpace Team</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <div class="material-description">
+            <p>Access our complete collection of resources for understanding, preventing, and healing from emotional violence. These materials provide strategies for emotional safety and building healthy relationships.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Emotional Safety Workbook</div>
+              <div class="file-meta">PDF • 15 pages • 10 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Parent's Guide to Emotional Safety</div>
+              <div class="file-meta">PDF • 12 pages • 8 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Coping Strategies Collection</div>
+              <div class="file-meta">PDF • 9 pages • 6 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-header">
+          <h3 class="material-title">Crisis Support Resources</h3>
+          <div class="material-meta">
+            <span><i class="fas fa-calendar-alt"></i> Updated: ........</span>
+            <span><i class="fas fa-user"></i> HerShield Support Team</span>
+          </div>
+        </div>
+        <div class="material-content">
+          <div class="material-thumbnail">
+            <i class="fas fa-life-ring"></i>
+          </div>
+          <div class="material-description">
+            <p>Immediate help resources for anyone experiencing emotional violence or crisis. These contacts provide confidential support from trained professionals.</p>
+          </div>
+        </div>
+        <div class="material-files">
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Emergency Contact List</div>
+              <div class="file-meta">PDF • 3 pages • 2 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+          <div class="file-item">
+            <div class="file-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-info">
+              <div class="file-name">Crisis Response Guide</div>
+              <div class="file-meta">PDF • 7 pages • 5 MB</div>
+            </div>
+            <div class="file-actions">
+              <a href="#"><i class="fas fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      
+      // Tab functionality
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const tabId = btn.dataset.tab;
+
+          // Deactivate everything
+          tabBtns.forEach((b) => b.classList.remove('active'));
+          tabContents.forEach((c) => c.classList.remove('active'));
+
+          // Activate clicked button and matching content
+          btn.classList.add('active');
+          const target = document.getElementById(tabId);
+          if (target) target.classList.add('active');
+        });
+      });
+
+      // Floating animation for thumbnails
+      document.querySelectorAll('.material-thumbnail').forEach((thumb) => {
+        thumb.style.animation = 'float 4s ease-in-out infinite';
+      });
+
+      // Sidebar toggle
+      if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('active');
+          overlay.classList.toggle('active');
+        });
+      }
+      
+      // Close sidebar when clicking on overlay
+      overlay.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Help - SafeSpace Academy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ===== BASE STYLES ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #fff5f5;
+      margin-left: 250px;
+      color: #333;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ffd6e7;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 250px;
+      z-index: 90;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: left 0.3s ease;
+    }
+
+    .left-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .hamburger-menu {
+      display: none;
+      font-size: 24px;
+      color: #c2185b;
+      cursor: pointer;
+    }
+
+    .group-indicator {
+      font-weight: 600;
+      color: #c2185b;
+      padding: 8px 15px;
+      border-radius: 20px;
+      background-color: #ffebee;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .group-indicator i {
+      margin-right: 8px;
+      color: #c2185b;
+    }
+
+    .right-section a {
+      margin-left: 15px;
+      color: #c2185b;
+      font-size: 18px;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #c2185b;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background-color: #880e4f;
+    }
+
+    .sidebar img {
+      width: 110px;
+      height: 90px;
+      margin-bottom: 10px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      font-family: 'Comic Neue', cursive;
+    }
+
+    .sidebar-menu {
+      width: 100%;
+      list-style: none;
+      padding: 20px 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .sidebar-menu li {
+      margin: 8px 0;
+    }
+
+    .sidebar-menu a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      margin: 0 10px;
+    }
+
+    .sidebar-menu a i {
+      margin-right: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-menu a:hover {
+      background-color: #d81b60;
+    }
+
+    .sidebar-menu a.active {
+      background-color: #880e4f;
+      font-weight: bold;
+    }
+
+    /* Main content area */
+    .main-content {
+      margin-top: 80px;
+      padding: 25px;
+    }
+
+    /* Emergency Banner */
+    .emergency-banner {
+      background: linear-gradient(135deg, #c2185b 0%, #ec407a 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .emergency-banner h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      font-family: 'Comic Neue', cursive;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+    }
+
+    .emergency-banner h1 i {
+      margin-left: 15px;
+      animation: pulse 1.5s infinite;
+    }
+
+    .emergency-banner p {
+      font-size: 18px;
+      max-width: 70%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .emergency-banner .banner-icons {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 100px;
+      opacity: 0.2;
+      z-index: 1;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Emergency Contacts */
+    .emergency-contacts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .emergency-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+
+    .emergency-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .emergency-header {
+      position: relative;
+      height: 100px;
+      background: linear-gradient(135deg, #c2185b 0%, #ec407a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .emergency-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+    }
+
+    .emergency-details {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .emergency-details h3 {
+      color: #c2185b;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .emergency-info {
+      color: #555;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .emergency-number {
+      display: block;
+      font-size: 24px;
+      font-weight: bold;
+      color: #c2185b;
+      margin-bottom: 15px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .emergency-number:hover {
+      color: #ec407a;
+      transform: scale(1.05);
+    }
+
+    .emergency-action {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #c2185b;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .emergency-action:hover {
+      background-color: #ec407a;
+      transform: translateY(-3px);
+    }
+
+    /* Safety Tips */
+    .safety-tips {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .safety-tips h2 {
+      color: #c2185b;
+      margin-bottom: 20px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .safety-tips h2 i {
+      margin-right: 10px;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .tip-card {
+      background: #fce4ec;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 4px solid #c2185b;
+    }
+
+    .tip-card h3 {
+      color: #c2185b;
+      margin-bottom: 10px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+    }
+
+    .tip-card h3 i {
+      margin-right: 10px;
+    }
+
+    .tip-card p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Animation */
+   @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+   
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      body {
+        margin-left: 0;
+      }
+      
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .top-bar {
+        left: 0;
+      }
+      
+      .emergency-banner p {
+        max-width: 100%;
+      }
+      
+      .emergency-banner .banner-icons {
+        display: none;
+      }
+
+      .hamburger-menu {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .emergency-contacts,
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .top-bar {
+        padding: 15px 20px;
+      }
+      
+      .group-indicator {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+      
+      .right-section a {
+        font-size: 16px;
+        margin-left: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .group-indicator {
+        font-size: 12px;
+        padding: 5px 10px;
+      }
+      
+      .right-section a {
+        font-size: 14px;
+        margin-left: 10px;
+      }
+      
+      .left-section {
+        gap: 10px;
+      }
+      
+      .emergency-number {
+        font-size: 20px;
+      }
+    }
+
+    /* Overlay for when sidebar is open on mobile */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+    
+    .overlay.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="left-section">
+      <div class="hamburger-menu" id="hamburger-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="group-indicator">
+        <i class="fas fa-exclamation-circle"></i> Emergency Help Resources
+      </div>
+    </div>
+    
+    <div class="right-section">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-medium-m"></i></a>
+      <a href="mailto:safespace.academy@gmail.com"><i class="fas fa-envelope"></i></a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-container">
+      <img src="https://placehold.co/110x90/pink/white?text=HS" alt="HerShield Academy Logo">
+      <h2 class="logo">HerShield Academy</h2>
+    </div>
+    <ul class="sidebar-menu">
+       <li><a href="/home1eng.html"><i class="fas fa-home"></i> Home</a></li>
+  <li><a href="/grp1en/SS.html"><i class="fas fa-shield-alt"></i> Safety Sessions</a></li>
+  <li><a href="/grp1en/Teacher.html" ><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+
+  <!-- Subjects of Violence -->
+  <li><a href="/grp1en/PV.html"><i class="fas fa-user-slash"></i> Physical Violence</a></li>
+  <li><a href="/grp1en/EV.html"><i class="fas fa-heart-broken"></i> Emotional Violence</a></li>
+  <li><a href="/grp1en/SV.html"><i class="fas fa-venus-mars"></i> Sexual Violence</a></li>
+  <li><a href="/grp1en/EC.html"><i class="fas fa-hand-holding-usd"></i> Economic Violence</a></li>
+  <li><a href="/grp1en/Cyber.html"><i class="fas fa-user-lock"></i> Cyberbullying</a></li>
+
+  <!-- Support & Resources -->
+  <li><a href="/grp1en/EH.html" class="active"><i class="fas fa-phone-alt"></i> Emergency Help</a></li>
+  <li><a href="/grp1en/resource.html"><i class="fas fa-book"></i> Resources</a></li>
+  <li><a href="/grp1en/Guide.html"><i class="fas fa-cog"></i> Guidelines</a></li>
+  <li><a href="/grp1en/SH.html"><i class="fas fa-hand-holding-heart"></i> Support & Help</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+      <h1>Emergency Help <i class="fas fa-phone-alt"></i></h1>
+      <p>Immediate assistance and resources for those in need. You are not alone.</p>
+      <div class="banner-icons">
+        <i class="fas fa-phone-alt"></i>
+      </div>
+    </div>
+
+    <!-- Emergency Contacts -->
+    <div class="emergency-contacts">
+      <!-- Emergency Services -->
+      <div class="emergency-card">
+        <div class="emergency-header">
+          <div class="emergency-icon">
+            <i class="fas fa-ambulance"></i>
+          </div>
+        </div>
+        <div class="emergency-details">
+          <h3>Emergency Services</h3>
+          <p class="emergency-info">For immediate danger or medical emergencies</p>
+          <a href="tel:911" class="emergency-number">---</a>
+          <a href="tel:911" class="emergency-action">Call Now</a>
+        </div>
+      </div>
+
+      <!-- Crisis Hotline -->
+      <div class="emergency-card">
+        <div class="emergency-header">
+          <div class="emergency-icon">
+            <i class="fas fa-life-ring"></i>
+          </div>
+        </div>
+        <div class="emergency-details">
+          <h3>Crisis Hotline</h3>
+          <p class="emergency-info">24/7 support for emotional distress</p>
+          <a href="tel:988" class="emergency-number">---</a>
+          <a href="tel:988" class="emergency-action">Call Now</a>
+        </div>
+      </div>
+
+      <!-- Domestic Violence -->
+      <div class="emergency-card">
+        <div class="emergency-header">
+          <div class="emergency-icon">
+            <i class="fas fa-house-damage"></i>
+          </div>
+        </div>
+        <div class="emergency-details">
+          <h3>Domestic Violence</h3>
+          <p class="emergency-info">Help for abusive situations</p>
+          <a href="tel:18007997233" class="emergency-number">1-800-799-7233</a>
+          <a href="tel:18007997233" class="emergency-action">Call Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Safety Tips -->
+    <div class="safety-tips">
+      <h2><i class="fas fa-lightbulb"></i> Safety Planning Tips</h2>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <h3><i class="fas fa-mobile-alt"></i> Emergency Contacts</h3>
+          <p>Keep important numbers programmed in your phone and written down in case your phone is unavailable.</p>
+        </div>
+        
+        <div class="tip-card">
+          <h3><i class="fas fa-map-marked-alt"></i> Safe Locations</h3>
+          <p>Identify safe places you can go in an emergency, like friends' houses, family homes, or public places.</p>
+        </div>
+        
+        <div class="tip-card">
+          <h3><i class="fas fa-user-shield"></i> Digital Safety</h3>
+          <p>Clear your browser history after visiting help sites and use private browsing mode when seeking help online.</p>
+        </div>
+        
+        <div class="tip-card">
+          <h3><i class="fas fa-suitcase"></i> Emergency Bag</h3>
+          <p>Keep a bag with essentials (ID, money, medications, important documents) in case you need to leave quickly.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburgerMenu = document.getElementById('hamburger-menu');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+
+      // Toggle sidebar on hamburger menu click
+      hamburgerMenu.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      });
+
+      // Close sidebar when clicking on overlay
+      overlay.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
