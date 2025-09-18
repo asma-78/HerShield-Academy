@@ -6,7 +6,7 @@
   <title>Emergency Help - SafeSpace Academy</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* ===== BASE STYLES ===== */
+     /* ===== BASE STYLES ===== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -441,6 +441,15 @@
     .overlay.active {
       display: block;
     }
+    /* Add minimal style for dropdown */
+    .emergency-dropdown {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+    }
   </style>
 </head>
 <body>
@@ -475,21 +484,17 @@
     </div>
     <ul class="sidebar-menu">
        <li><a href="https://asma-78.github.io/HerShield-Academy/home1eng.html"><i class="fas fa-home"></i> Home</a></li>
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/SS.html"><i class="fas fa-shield-alt"></i> Safety Sessions</a></li>
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/Teacher.html" ><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
-
-  <!-- Subjects of Violence -->
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/PV.html"><i class="fas fa-user-slash"></i> Physical Violence</a></li>
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/EV.html"><i class="fas fa-heart-broken"></i> Emotional Violence</a></li>
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/SV.html"><i class="fas fa-venus-mars"></i> Sexual Violence</a></li>
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/EC.html"><i class="fas fa-hand-holding-usd"></i> Economic Violence</a></li>
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/Cyber.html"><i class="fas fa-user-lock"></i> Cyberbullying</a></li>
-
-  <!-- Support & Resources -->
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/EH.html" class="active"><i class="fas fa-phone-alt"></i> Emergency Help</a></li>
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/resource.html"><i class="fas fa-book"></i> Resources</a></li>
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/Guide.html"><i class="fas fa-cog"></i> Guidelines</a></li>
-  <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/SH.html"><i class="fas fa-hand-holding-heart"></i> Support & Help</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/SS.html"><i class="fas fa-shield-alt"></i> Safety Sessions</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/Teacher.html"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/PV.html"><i class="fas fa-user-slash"></i> Physical Violence</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/EV.html"><i class="fas fa-heart-broken"></i> Emotional Violence</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/SV.html"><i class="fas fa-venus-mars"></i> Sexual Violence</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/EC.html"><i class="fas fa-hand-holding-usd"></i> Economic Violence</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/Cyber.html"><i class="fas fa-user-lock"></i> Cyberbullying</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/EH.html" class="active"><i class="fas fa-phone-alt"></i> Emergency Help</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/resource.html"><i class="fas fa-book"></i> Resources</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/Guide.html"><i class="fas fa-cog"></i> Guidelines</a></li>
+       <li><a href="https://asma-78.github.io/HerShield-Academy/grp1en/SH.html"><i class="fas fa-hand-holding-heart"></i> Support & Help</a></li>
     </ul>
   </aside>
 
@@ -506,7 +511,7 @@
 
     <!-- Emergency Contacts -->
     <div class="emergency-contacts">
-      <!-- Emergency Services -->
+      <!-- Emergency Services with dropdown -->
       <div class="emergency-card">
         <div class="emergency-header">
           <div class="emergency-icon">
@@ -514,29 +519,56 @@
           </div>
         </div>
         <div class="emergency-details">
-          <h3>Emergency Services</h3>
-          <p class="emergency-info">For immediate danger or medical emergencies</p>
-          <a href="tel:911" class="emergency-number">---</a>
-          <a href="tel:911" class="emergency-action">Call Now</a>
+          <h3>Police Emergency Numbers</h3>
+          <label for="emergencyInput">Select your country:</label>
+<input list="countries" id="emergencyInput" placeholder="Start typing country...">
+<datalist id="countries">
+  <option value="Morocco - Police: 19">
+  <option value="Mauritania - Police: 17">
+  <option value="Mali - Police: 17">
+  <option value="Gambia - Police: 999">
+  <option value="Sierra Leone - Police: 158">
+  <option value="Kenya - Police: 999">
+  <option value="Liberia - Police: 911">
+  <option value="Tunisia - Police: 197">
+  <option value="Egypt - Police: 122">
+  <option value="Libya - Police: 1515">
+  <option value="Algeria - Police: 17">
+</datalist>
+<br><br>
+          <a href="#" onclick="callNow()" class="emergency-action"> Call Now</a>
         </div>
       </div>
-
-      <!-- Crisis Hotline -->
-      <div class="emergency-card">
+      <!--
+       <div class="emergency-card">
         <div class="emergency-header">
           <div class="emergency-icon">
             <i class="fas fa-life-ring"></i>
           </div>
         </div>
+        
         <div class="emergency-details">
           <h3>Crisis Hotline</h3>
           <p class="emergency-info">24/7 support for emotional distress</p>
-          <a href="tel:988" class="emergency-number">---</a>
-          <a href="tel:988" class="emergency-action">Call Now</a>
+          <label for="hotlineInput">Hotlines / Therapy:</label>
+    <input list="hotlineList" id="hotlineInput" placeholder="Start typing country...">
+    <datalist id="hotlineList">
+      <option value="Morocco - Therapy: 080 100 23 23">
+      <option value="Mauritania - Therapy: 122">
+      <option value="Mali - Therapy: 122">
+      <option value="Gambia - Therapy: 117">
+      <option value="Sierra Leone - Therapy: 111">
+      <option value="Kenya - Therapy: 1199">
+      <option value="Liberia - Therapy: 121">
+      <option value="Tunisia - Therapy: 116">
+      <option value="Egypt - Therapy: 080 00 33 33">
+      <option value="Libya - Therapy: 1515">
+      <option value="Algeria - Therapy: 1545">
+    </datalist>
+    <br><br>
+          <a href="#" onclick="callNow()" class="emergency-action"> Call Now</a>
         </div>
-      </div>
-
-      <!-- Domestic Violence -->
+      </div>-->
       <div class="emergency-card">
         <div class="emergency-header">
           <div class="emergency-icon">
@@ -545,9 +577,24 @@
         </div>
         <div class="emergency-details">
           <h3>Domestic Violence</h3>
-          <p class="emergency-info">Help for abusive situations</p>
-          <a href="tel:18007997233" class="emergency-number">1-800-799-7233</a>
-          <a href="tel:18007997233" class="emergency-action">Call Now</a>
+          <!-- Domestic Violence -->
+    <label for="dvInput">Domestic Violence:</label>
+    <input list="dvList" id="dvInput" placeholder="Start typing country...">
+    <datalist id="dvList">
+      <option value="Morocco - DV: 080 200 17 17">
+      <option value="Mauritania - DV: 116">
+      <option value="Mali - DV: 30 40 99">
+      <option value="Gambia - DV: 1020">
+      <option value="Sierra Leone - DV: 116">
+      <option value="Kenya - DV: 1195">
+      <option value="Liberia - DV: 355">
+      <option value="Tunisia - DV: 1905">
+      <option value="Egypt - DV: 1515">
+      <option value="Libya - DV: 1515">
+      <option value="Algeria - DV: 1545">
+    </datalist>
+    <br><br>
+          <a href="#" onclick="callNow()" class="emergency-action"> Call Now</a>
         </div>
       </div>
     </div>
@@ -597,8 +644,57 @@
         overlay.classList.remove('active');
       });
     });
+
+    function callNow() {
+      const number = document.getElementById("emergencySelect").value;
+      window.location.href = number;
+    }
+    const numbers = {
+  // Police / Emergency
+  "Morocco - Police: 19": "tel:19",
+  "Mauritania - Police: 17": "tel:17",
+  "Mali - Police: 17": "tel:17",
+  "Gambia - Police: 999": "tel:999",
+  "Sierra Leone - Police: 158": "tel:158",
+  "Kenya - Police: 999": "tel:999",
+  "Liberia - Police: 911": "tel:911",
+  "Tunisia - Police: 197": "tel:197",
+  "Egypt - Police: 122": "tel:122",
+  "Libya - Police: 1515": "tel:1515",
+  "Algeria - Police: 17": "tel:17",
+
+  // Domestic Violence
+  "Morocco - DV: 080 200 17 17": "tel:0802001717",
+  "Mauritania - DV: 116": "tel:116",
+  "Mali - DV: 30 40 99": "tel:304099",
+  "Gambia - DV: 1020": "tel:1020",
+  "Sierra Leone - DV: 116": "tel:116",
+  "Kenya - DV: 1195": "tel:1195",
+  "Liberia - DV: 355": "tel:355",
+  "Tunisia - DV: 1905": "tel:1905",
+  "Egypt - DV: 1515": "tel:1515",
+  "Libya - DV: 1515": "tel:1515",
+  "Algeria - DV: 1545": "tel:1545",
+
+  
+};
+
+function callNow() {
+  const inputs = [
+    document.getElementById("policeInput").value,
+    document.getElementById("dvInput").value,
+    document.getElementById("hotlineInput").value
+  ];
+
+  for(let i=0; i<inputs.length; i++){
+    if(numbers[inputs[i]]){
+      window.location.href = numbers[inputs[i]];
+      return;
+    }
+  }
+
+  alert("Please select a valid country/number from the list.");
+}
   </script>
 </body>
 </html>
-
-
